@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Leemit</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="description" content="Documentation for leemit">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, shrink-to-fit=no" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/css/theme-simple-dark.css">
+    <style type="text/css">
+        img {
+            height: 40px;
+        }
+
+        article .method {
+            text-transform: uppercase;
+            padding: 6px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 22px;
+            color: white;
+        }
+
+        ul .method {
+            text-transform: uppercase;
+            padding: 4px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 12px;
+            color: white;
+        }
+
+        .get {
+            background-color: #6bbd5b;
+        }
+
+        .post {
+            background-color: #268fb2;
+        }
+
+        .patch {
+            background-color: #e09d43;
+        }
+
+        .delete {
+            background-color: #d96367;
+        }
+
+        .round {
+            border-radius: 10px;
+            padding: 0 9px;
+            margin-right: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app"></div>
+    <script>
+        window.$docsify = {
+            name: "Solar REST api",
+            repo: "https://github.com/leem-it",
+            homepage: "README.md",
+            loadSidebar: "sidebar.md",
+            auto2top: true,
+            logo: '/assets/logo.png'
+        };
+    </script>
+    <script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
+    <script src="https://unpkg.com/docsify/lib/plugins/search.js"></script>
+</body>
+
+</html>

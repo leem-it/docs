@@ -1,0 +1,9 @@
+{
+	"status": {
+		"200": ["get", "200: OK"],
+		"201": ["get", "201: Created"],
+		"400": ["delete", "400: Bad Request"],
+		"401": ["delete", "401: Unauthorized"],
+		"404": ["delete", "404: Not Found"]
+	}
+}

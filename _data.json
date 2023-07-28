@@ -1,0 +1,284 @@
+{
+	"items": [
+		{
+			"name": "authorization",
+			"description": "The api allows for authentication with both email/password and the google Oauth2.\\It uses jwt tokens for authorization",
+			"example": {
+				"_id": "610acd67d0196ee0a17a841a",
+				"name": "NASA",
+				"description": "an independent agency of the U.S. federal government",
+				"logo": "https://www.com/",
+				"founding_year": 1958,
+				"image": "https://www.com/"
+			},
+			"methods": [
+				{
+					"method": "get",
+					"description": "hello",
+					"title": "List agencies",
+					"request": [],
+					"response": "default"
+				},
+				{
+					"method": "post",
+					"title": "Add agency",
+					"request": "default",
+					"response": "default"
+				},
+				{
+					"method": "patch",
+					"title": "Edit agency",
+					"request": "default",
+					"response": "default"
+				}
+			]
+		},
+		{
+			"name": "tag",
+			"description": "Tags are used to classify news and insights, they can be used to summarize the content explained in the article.",
+			"example": {
+				"_id": "610acd67d0196ee0a17a841a",
+				"name": "launch",
+				"color": "ff0000",
+				"description": "Tag for launch news"
+			},
+			"methods": [
+				{
+					"method": "get",
+					"title": "List tags",
+					"request": [],
+					"response": "default"
+				},
+				{
+					"method": "post",
+					"title": "Add tag",
+					"request": "default",
+					"response": "default"
+				},
+				{
+					"method": "patch",
+					"title": "Edit tag",
+					"request": "default",
+					"response": "default"
+				}
+			]
+		},
+		{
+			"name": "author",
+			"description": "An author is someone how writes news and/or insights.",
+			"example": {
+				"_id": "610acd67d0196ee0a17a841a",
+				"name": "Elon",
+				"logo": "https://www.com",
+				"description": "Elon Musk"
+			},
+			"methods": [
+				{
+					"method": "get",
+					"title": "List authors",
+					"request": [],
+					"response": "default"
+				},
+				{
+					"method": "post",
+					"title": "Add author",
+					"request": "default",
+					"response": "default"
+				},
+				{
+					"method": "patch",
+					"title": "Edit author",
+					"request": "default",
+					"response": "default"
+				}
+			]
+		},
+		{
+			"name": "launch",
+			"description": "A launch objects rapresent the event that will happen, this uses an agency object to let users know who will launch the rocket",
+			"example": {
+				"_id": "610acd67d0196ee0a17a841a",
+				"created_at": 1630221276000,
+				"last_edited": 1630221276000,
+				"name": "Firefly Alpha",
+				"launch_time_utc": 1630221276000,
+				"image": "https://www.com",
+				"agency": "{ agency_object }",
+				"summary": "First flight of the new Firefly Alpha launcher.",
+				"description": "First flight of the new Firefly Alpha small sat launcher developed by Firefly Aerospace.",
+				"webcast": "",
+				"infographic": ""
+			},
+			"methods": [
+				{
+					"method": "get",
+					"title": "List agencies",
+					"request": [
+						{ "name": "limit", "type": "number", "in": "query", "required": false },
+						{ "name": "offset", "type": "number", "in": "query", "required": false },
+						{ "name": "agency", "type": "string", "in": "query", "required": false }
+					],
+					"response": "default"
+				},
+				{
+					"method": "post",
+					"title": "Add launch",
+					"request": "default",
+					"response": "default"
+				},
+				{
+					"method": "patch",
+					"title": "Edit launch",
+					"request": "default",
+					"response": "default"
+				},
+				{
+					"method": "delete",
+					"title": "Delete launch",
+					"request": "default",
+					"response": "default"
+				}
+			]
+		},
+		{
+			"name": "news",
+			"description": "A news objects rapresent an article writte by one of the authors and classified by some tags",
+			"example": {
+				"_id": "610ef0cd756e0a9ad5013416",
+				"created_at": 1625485221763,
+				"last_edited": 1628494652588,
+				"image": "https://www.com",
+				"tags": ["tags object"],
+				"summary": "...",
+				"description": "...",
+				"insight": false
+			},
+			"methods": [
+				{
+					"method": "get",
+					"title": "List agencies",
+					"request": [
+						{ "name": "insight", "type": "bool", "in": "query", "required": true },
+						{ "name": "limit", "type": "number", "in": "query", "required": false },
+						{ "name": "offset", "type": "number", "in": "query", "required": false },
+						{ "name": "tag", "type": "string", "in": "query", "required": false }
+					],
+					"response": "default"
+				},
+				{
+					"method": "post",
+					"title": "Add launch",
+					"request": "default",
+					"response": "default"
+				},
+				{
+					"method": "patch",
+					"title": "Edit launch",
+					"request": "default",
+					"response": "default"
+				},
+				{
+					"method": "delete",
+					"title": "Delete launch",
+					"request": "default",
+					"response": "default"
+				}
+			]
+		},
+		{
+			"name": "login",
+			"description": "A set of endpoint that allow for login of the maintainers, with the returned token it's possible to gain access to the POST, PATCH and DELETE endpoints",
+			"methods": [
+				{
+					"method": "get",
+					"title": "check",
+					"description": "Checks if it is a valid token",
+					"endpoint": "check",
+					"request": [{ "name": "Authorization", "type": "string", "in": "header", "required": true }],
+					"response": [
+						{
+							"status": 200,
+							"example": "OK"
+						},
+						{
+							"status": 401,
+							"example": "Unauthorized"
+						}
+					]
+				},
+				{
+					"method": "get",
+					"title": "verify",
+					"description": "Sends a 2fa authentication code to the user's discord dms",
+					"endpoint": "verify",
+					"request": [
+						{ "name": "mail", "type": "string", "in": "header", "required": true },
+						{ "name": "password", "type": "string", "in": "header", "required": true }
+					],
+					"response": [
+						{
+							"status": 200,
+							"example": "OK"
+						},
+						{
+							"status": 400,
+							"example": {
+								"message": "\"mail\" is not allowed"
+							}
+						},
+						{
+							"status": 401,
+							"example": {
+								"message": "\"User not found\" is not allowed"
+							}
+						}
+					]
+				},
+				{
+					"method": "get",
+					"title": "verify",
+					"description": "Sends a 2fa authentication code to the user's discord dms",
+					"endpoint": "verify",
+					"request": [
+						{ "name": "mail", "type": "string", "in": "header", "required": true },
+						{ "name": "password", "type": "string", "in": "header", "required": true },
+						{ "name": "authcode", "type": "number", "in": "header", "required": true }
+					],
+					"response": [
+						{
+							"status": 200,
+							"example": { "token": "a valid api token" }
+						},
+						{
+							"status": 400,
+							"example": {
+								"message": "\"mail\" is not allowed"
+							}
+						},
+						{
+							"status": 401,
+							"example": {
+								"message": "\"User not found\" is not allowed"
+							}
+						}
+					]
+				},
+				{
+					"method": "get",
+					"title": "hash",
+					"description": "returns an hashed password",
+					"endpoint": "hash",
+					"request": [{ "name": "password", "type": "string", "in": "header", "required": true }],
+					"response": [
+						{
+							"status": 200,
+							"example": {
+								"hash": "hashed password"
+							}
+						}
+					]
+				}
+			]
+		}
+	]
+}

@@ -1,0 +1,206 @@
+{
+	"items": [
+		{
+			"name": "authorization",
+			"description": "The api allows for authentication with both email/password and the google Oauth2.\n\nThe api then uses jwt tokens for authorization.\n\nNote that when a user signups with email/password they can then use an oauth proviter to login to their accounts",
+			"methods": [
+				{
+					"method": "get",
+					"title": "Google Oauth2",
+					"description": "Starts the google oauth2 login process, this will redirect to a page that is handled by google.\nAt the end the auth returns either a jwt token or an exception.",
+					"endpoint": "auth/google",
+					"request": [],
+					"response": [
+						{
+							"status": 200,
+							"example": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIn0.dozjgNryP4J3jVmNHl0w5N_XgL0n3I9PlFUP0THsR8U"
+							}
+						},
+						{
+							"status": 401,
+							"example": {
+								"error": "Google Oauth exception"
+							}
+						}
+					]
+				},
+				{
+					"method": "post",
+					"title": "SignUp",
+					"description": "Simple email/password signup",
+					"endpoint": "auth/signup",
+					"request": [
+						{ "name": "name", "type": "string", "in": "body", "required": true },
+						{ "name": "email", "type": "string", "in": "body", "required": true },
+						{ "name": "password", "type": "string", "in": "body", "required": true }
+					],
+					"response": [
+						{
+							"status": 200,
+							"example": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIn0.dozjgNryP4J3jVmNHl0w5N_XgL0n3I9PlFUP0THsR8U"
+							}
+						},
+						{
+							"status": 401,
+							"example": { "error": "user is not authenticated" }
+						}
+					]
+				},
+				{
+					"method": "post",
+					"title": "LogIn",
+					"description": "Simple email/password login",
+					"endpoint": "auth/login",
+					"request": [
+						{ "name": "email", "type": "string", "in": "body", "required": true },
+						{ "name": "password", "type": "string", "in": "body", "required": true }
+					],
+					"response": [
+						{
+							"status": 200,
+							"example": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIn0.dozjgNryP4J3jVmNHl0w5N_XgL0n3I9PlFUP0THsR8U"
+							}
+						},
+						{
+							"status": 401,
+							"example": { "error": "user is not authenticated" }
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "token",
+			"description": "This endpoint allows to manage tokens",
+			"methods": [
+				{
+					"method": "get",
+					"title": "Refresh",
+					"description": "Allows to refresh a token (this function is currently disabled)",
+					"endpoint": "token/refresh",
+					"request": [],
+					"response": [
+						{
+							"status": 200,
+							"example": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIn0.dozjgNryP4J3jVmNHl0w5N_XgL0n3I9PlFUP0THsR8U"
+							}
+						},
+						{
+							"status": 401,
+							"example": "Unauthorized"
+						}
+					]
+				},
+				{
+					"method": "get",
+					"title": "Lifetime",
+					"description": "Allows to create lifetime tokens",
+					"endpoint": "token/lifetime/[device]",
+					"request": [],
+					"response": [
+						{
+							"status": 200,
+							"example": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIn0.dozjgNryP4J3jVmNHl0w5N_XgL0n3I9PlFUP0THsR8U"
+							}
+						},
+						{
+							"status": 401,
+							"example": "Unauthorized"
+						}
+					]
+				},
+				{
+					"method": "get",
+					"title": "LogOut",
+					"description": "Logs out all the temporary tokens from a user. Please note that this method won't logout lifetime tokens.",
+					"endpoint": "token/logout",
+					"request": [],
+					"response": [
+						{
+							"status": 200,
+							"example": { "status": "ok" }
+						},
+						{
+							"status": 401,
+							"example": "Unauthorized"
+						}
+					]
+				},
+				{
+					"method": "get",
+					"title": "LogOut a device",
+					"description": "Allows to invalidate lifetime tokens",
+					"endpoint": "token/login/[device]",
+					"request": [],
+					"response": [
+						{
+							"status": 200,
+							"example": { "status": "ok" }
+						},
+						{
+							"status": 401,
+							"example": "Unauthorized"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "user",
+			"description": "The endpoint contains functions to change user settings",
+			"methods": [
+				{
+					"method": "get",
+					"title": "Verify",
+					"description": "Sends a verification email if the user's email has not yet been verified",
+					"endpoint": "user/verify",
+					"request": [],
+					"response": [
+						{
+							"status": 200,
+							"example": { "status": "ok or verified" }
+						},
+						{
+							"status": 400,
+							"example": { "error": "unable to send email" }
+						},
+						{
+							"status": 401,
+							"example": {
+								"error": "Google Oauth exception"
+							}
+						}
+					]
+				},
+				{
+					"method": "post",
+					"title": "Verify",
+					"description": "Verifies the email",
+					"endpoint": "user/verify/[device]",
+					"request": [],
+					"response": [
+						{
+							"status": 200,
+							"example": "html page"
+						},
+						{
+							"status": 400,
+							"example": { "error": "invalid URL" }
+						},
+						{
+							"status": 401,
+							"example": {
+								"error": "Unauthenticated"
+							}
+						}
+					]
+				}
+			]
+		}
+	]
+}
